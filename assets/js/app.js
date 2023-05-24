@@ -124,7 +124,7 @@ particlesJS('particles-js',
 
 const header = document.querySelector('#header');
 const headerHeight = header.offsetHeight;
-const scrollThreshold = headerHeight * 2;
+const scrollThreshold = headerHeight ;
 
 window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
