@@ -57,7 +57,7 @@ h6 {
 }
 
 .logo img {
-  width: 170px
+  width: 150px
 }
 
 h1 {
@@ -80,7 +80,7 @@ main .row {
   top: 30%;
 }
 
-.btn {
+.btn ,.accordion-button:not(.collapsed){
   background-color: #D5BD91;
   border: 1px solid transparent;
   color: #fff;
@@ -92,9 +92,7 @@ main .row {
   border: 1px solid #D5BD91;
   color: #D5BD91;
 }
-
 .work {
-  /* height: 400px; */
   object-fit: cover;
 }
 
@@ -102,9 +100,7 @@ main .row {
   main .row {
     width: 85%;
   }
-  .prop{
-
-  }
+  
 }
 
 th.active {
