@@ -131,6 +131,7 @@ table.table.table-striped.table-hover.table-bordered{
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align:center;
   justify-content: center;
 
   
