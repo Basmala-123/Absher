@@ -136,59 +136,31 @@ window.addEventListener('scroll', () => {
     header.classList.remove('header-solid');
   }
 });
-// const form = document.getElementById("myForm");
 
 const form = document.querySelector('#myForm');
 const submitButton = form.querySelector('button[type="submit"]');
 submitButton.addEventListener('click', handleSubmit);
-// function handleSubmit(event) {
-//   event.preventDefault();
 
-//   const formData = new FormData();
-
-//   formData.append('isIndividual', form.querySelector('#flexRadioDefault1').checked);
-//   formData.append('isCallCenterOwner', form.querySelector('#flexRadioDefault2').checked);
-//   formData.append('name', form.querySelector('#Name').value);
-//   formData.append('email', form.querySelector('#Email').value);
-//   formData.append('phone', form.querySelector('#number').value);
-//   formData.append('skype', form.querySelector('#skype').value);
-//   formData.append('age', form.querySelector('#age').value);
-//   formData.append('location', form.querySelector('#Location').value);
-//   formData.append('experience', form.querySelector('#experience').value);
-//   formData.append('vertical', form.querySelector('select').value);
-//   fetch('/https://acc-company.onrender.com/SendInformation', {
-//     method: 'POST',
-//     body: formData
-//   })
-//   .then(response => response.json())
-//   .then(data => console.log(data))
-//   .catch(error => console.error(error));
-//   console.log(formData);
-//   console.log(
-//     res.status(200).json({message:"Your Appplication is send Successfully"})
-//   );
-
-// }
 function handleSubmit(event) {
   event.preventDefault();
 
   const formData = new FormData();
-
-  formData.append('isIndividual', form.querySelector('#flexRadioDefault1').checked);
-  formData.append('isCallCenterOwner', form.querySelector('#flexRadioDefault2').checked);
-  formData.append('name', form.querySelector('#Name').value);
+  formData.append('Iam_Individual', form.querySelector('#flexRadioDefault1').checked);
+  formData.append('Iam_Owner_Of_CallCenter', form.querySelector('#flexRadioDefault2').checked);
   formData.append('email', form.querySelector('#Email').value);
+  formData.append('name', form.querySelector('#Name').value);
   formData.append('phone', form.querySelector('#number').value);
   formData.append('skype', form.querySelector('#skype').value);
   formData.append('age', form.querySelector('#age').value);
-  formData.append('location', form.querySelector('#Location').value);
+  formData.append('country', form.querySelector('#Location').value);
   formData.append('experience', form.querySelector('#experience').value);
   formData.append('vertical', form.querySelector('select').value);
-
+  const entries = Array.from(formData.entries());
+  const formDataObject = Object.fromEntries(entries);
+console.log(formDataObject);
   fetch('https://acc-company.onrender.com/SendInformation', {
     method: 'POST',
-    body: formData,
-    
+    body: formDataObject,
     mode: 'no-cors'
   })
   .then(response => {
@@ -204,15 +176,13 @@ function handleSubmit(event) {
       throw new Error('Email already exists');
     } 
     else {
-      throw new Error('Internal server error');
+      throw new Error('Internal  error');
     }
   })
   .then(data => {
     console.log(data.message);
-    // do something with the success message, e.g. display a success message to the user
   })
   .catch(error => {
     console.error(error);
-    // handle the error, e.g. display an error message to the user
   });
 }
