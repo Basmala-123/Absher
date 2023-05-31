@@ -121,7 +121,6 @@ particlesJS('particles-js',
 
 );
 
-
 const header = document.querySelector('#header');
 const headerHeight = header.offsetHeight;
 const scrollThreshold = headerHeight ;
@@ -143,7 +142,6 @@ submitButton.addEventListener('click', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-
   const formData = new FormData();
   formData.append('Iam_Individual', form.querySelector('#flexRadioDefault1').checked);
   formData.append('Iam_Owner_Of_CallCenter', form.querySelector('#flexRadioDefault2').checked);
@@ -152,37 +150,34 @@ function handleSubmit(event) {
   formData.append('phone', form.querySelector('#number').value);
   formData.append('skype', form.querySelector('#skype').value);
   formData.append('age', form.querySelector('#age').value);
-  formData.append('country', form.querySelector('#Location').value);
-  formData.append('experience', form.querySelector('#experience').value);
-  formData.append('vertical', form.querySelector('select').value);
+  formData.append('location', form.querySelector('#Location').value);
+  formData.append('previousExperience', form.querySelector('#experience').value);
+  formData.append('DialedVertical', form.querySelector('select').value);
   const entries = Array.from(formData.entries());
   const formDataObject = Object.fromEntries(entries);
-console.log(formDataObject);
+  console.log(formDataObject);
+
   fetch('https://acc-company.onrender.com/SendInformation', {
     method: 'POST',
-    body: formDataObject,
-    mode: 'no-cors'
+    mode:'no-cors',
+    // headers: {
+    //   'Content-Type': 'application/json'
+    // },
+    
+    body:formDataObject
   })
   .then(response => {
-    if (response.ok) {
-      return response.json();
-    } else if (response.status === 422) {
-      return response.json().then(data => {
-        const errors = data.errors.map(error => error.msg).join('\n');
-        throw newError(errors);
-      });
-    } 
-    else if (response.status === 409) {
-      throw new Error('Email already exists');
-    } 
-    else {
-      throw new Error('Internal  error');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
+    return response.json();
   })
   .then(data => {
-    console.log(data.message);
+    console.log(data);
+    alert('Form submitted successfully!');
   })
   .catch(error => {
-    console.error(error);
+    console.error('There was a problem with the fetch operation:', error);
+    alert('There was an error submitting the form. Please try again later.');
   });
 }
