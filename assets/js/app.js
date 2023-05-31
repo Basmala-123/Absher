@@ -153,22 +153,36 @@ function handleSubmit(event) {
   formData.append('location', form.querySelector('#Location').value);
   formData.append('previousExperience', form.querySelector('#experience').value);
   formData.append('DialedVertical', form.querySelector('select').value);
-  const entries = Array.from(formData.entries());
-  const formDataObject = Object.fromEntries(entries);
-  console.log(formDataObject);
+  // const entries = Array.from(formData.entries());
+  // const formDataObject = Object.fromEntries(entries);
+  const formDataMap = new Map(formData.entries());
+  const data = {
+    "Iam_Individual": "true",
+    "Iam_Owner_Of_CallCenter": "false",
+    "email": "basmala143@gmail.com",
+    "name": "Fatma Metwally",
+    "phone": "0192398384",
+    "skype": "SkypeUser123",
+    "age": "22",
+    "location": "egypt , Qalubia",
+    "previousExperience": "3",
+    "DialedVertical": "Arts and crafts"
+  }; 
+  // const dataMap = new Map(Object.entries(data));
+  // console.log(dataMap);
+  console.log(data);
 
   fetch('https://acc-company.onrender.com/SendInformation', {
     method: 'POST',
     mode:'no-cors',
-    // headers: {
-    //   'Content-Type': 'application/json'
-    // },
-    
-    body:formDataObject
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify(data)
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('my error is'+response.status);
     }
     return response.json();
   })
